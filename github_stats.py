@@ -73,7 +73,7 @@ class Queries(object):
         :return: deserialized REST JSON output
         """
 
-        for _ in range(60):
+        for _ in range(3):
             headers = {
                 "Authorization": f"token {self.access_token}",
             }
@@ -89,8 +89,8 @@ class Queries(object):
                         params=tuple(params.items()),
                     )
                 if r_async.status == 202:
-                    # print(f"{path} returned 202. Retrying...")
-                    print(f"A path returned 202. Retrying...")
+                    print(f"{path} returned 202. Retrying...")
+                    #print(f"A path returned 202. Retrying...")
                     await asyncio.sleep(2)
                     continue
 
@@ -112,8 +112,8 @@ class Queries(object):
                         continue
                     elif r_requests.status_code == 200:
                         return r_requests.json()
-        # print(f"There were too many 202s. Data for {path} will be incomplete.")
-        print("There were too many 202s. Data for this repository will be incomplete.")
+        print(f"There were too many 202s. Data for {path} will be incomplete.")
+        #print("There were too many 202s. Data for this repository will be incomplete.")
         return dict()
 
     @staticmethod
